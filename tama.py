@@ -17,13 +17,31 @@ food = 100
 health = 100
 fat = 0
 emo = 100
+day = 1
 
-name = raw_input('Name your tamagotchi!!!!!: ')
-print name, "? Wow what a stupid name!"
+name = input('Name your tamagotchi!!!!!: ')
+print(name, "? Wow what a stupid name!\n")
 
+def dead_pic():
+  print(" --- ", name, " (RIP) ---")
+  print("\n")
+  print("""
+  
+        /`·..
+       /,...,`:·
+   ¸.·´  ¸   `·.¸.·´)
+  : X ):´;      ¸  {
+   `·.¸ `·  ¸.·´\`·¸)
+       `\\´´\¸.·´
+  
+  
+  
+  """)
+  
 
 def pic():
-  print(name)
+  print("Day: ", day)
+  print(" --- ", name, " ---")
   print("\n")
   print("""
   
@@ -46,7 +64,8 @@ def stats():
   global sleep
   global health
   global emo
-  
+  global day
+
   if sleep < 0:
     sleep = 0
     health = health - 10
@@ -78,12 +97,12 @@ def stats():
   if sleep > 100:
     health = health - 5
     
-  print "Your tamagotchis stats are: \n"
-  print "Sleep:",sleep
-  print "Food:",food
-  print "Healthy:",health
-  print "Fat:",fat
-  print "Emotion:",emo
+  print("Your tamagotchis stats are: \n")
+  print("Sleep:",sleep)
+  print("Food:",food)
+  print("Healthy:",health)
+  print("Fat:",fat)
+  print("Emotion:",emo)
 
 
 def checkup(): 
@@ -101,17 +120,18 @@ def checkup():
     print("Your tamagotchi is fat.")
     
   if (emo < 40):
-    print ("Your tamagotchi is sad.")
+    print("Your tamagotchi is sad.")
   
 def do():
-  do = raw_input(">>")
+  do = input(">>")
   
   global food
   global fat
   global sleep
   global health
   global emo
-  
+  global day
+
   if(do == "feed"):
     food = food + 15
     fat = fat + 10
@@ -128,15 +148,20 @@ def do():
     emo = emo + 7
     food = food - 5
     sleep = sleep - 10
-    
+  
+  if(do == "kill"):
+    health = 0
+    emo = 0
+    print("You're messed up, man.")
+
   else:
-    print("no")
+    print("Not a valid option. You may 'feed', 'play', or 'sleep'")
     
   health = health - 5
   food = food - 5
   sleep = sleep - 5
   emo = emo - 2
-  
+  day = day + 1
 
 while(health > 0):
   pic()
@@ -146,5 +171,7 @@ while(health > 0):
   print("\033[H\033[J")
   
 
-print "Your tamagotchi is dead.\n"
-raw_input(">>")
+print("Your tamagotchi,", name, ", is dead.\n")
+print("Your tamagotchi survived", day, "days.\n")
+dead_pic()
+input(">>")
